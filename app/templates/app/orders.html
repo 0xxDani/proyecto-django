@@ -1,0 +1,64 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Ordenes | Astral Shop{% endblock title %}
+
+{% block main-content %}
+
+<div class="container my-5">
+    <div class="banner-izquierdo">
+        <br>
+        <h3>Hola <span class="text-capitalize">{{request.user}}</span>, aquí puedes ver el estado de tus órdenes</h3>
+        <br>
+        <div class="col-sm-9 offset-sm-1">
+            {% for op in order_placed %}
+            <div class="div-ordenes-uno">
+                <div class="orden-imagen">
+                    <img src="{{op.product.imagen_producto.url}}" class="img-fluid" height="100" width="100">
+                </div>
+                <div class="orden-detalles">
+                    <div class="detalle">
+                        <h6>Producto: </h6>
+                        <p>{{op.product.titulo_producto}}</p>
+                    </div>
+                    <div class="detalle">
+                        <h6>Cantidad : </h6>
+                        <p>{{op.cantidad}}</p>
+                    </div>
+                    <div class="detalle">
+                        <h6>Precio : </h6>
+                        <p>{{op.total_cost}}</p>
+                    </div>
+                    <div class="orden-estado">
+                        <p>Estado de orden : {{op.status}}</p>
+                        {% if op.status == 'Aceptado' %}
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        {% elif op.status == 'Empacado' %}
+                        <div class="progress">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        {% elif op.status == 'En camino' %}
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        {% elif op.status == 'Entregado' %}
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        {% elif op.status == 'Cancelado' %}
+                        <div class="progress">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+            </div>
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock main-content %}

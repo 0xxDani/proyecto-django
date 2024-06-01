@@ -1,0 +1,28 @@
+<!-- templates/tu_template.html -->
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Resultados de búsqueda | Astral Shop{% endblock title %}
+
+{% block main-content %}
+    <br>
+    <div class="container my-5">
+        <div class="row" id="product-grid">
+            {% for prod in product %}
+                <div class="product-item" id="fav-product-col">
+                    <a href="{% url 'product-detail' prod.product.id %}" class="btn">
+                        <div class="product-content">
+                            <img src="{{prod.product.imagen_producto.url}}" alt="{{prod.product.titulo_producto}}">
+                        </div>
+                        <div class="product-details">
+                            <div>{{prod.product.titulo_producto}}</div>
+                            <div class="fw-bold text-danger">
+                                $.{{prod.product.precio_con_descuento}}/-
+                                <small class="fw-light text-decoration-line-through">{{prod.product.precio_venta}}</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock main-content %}

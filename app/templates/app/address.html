@@ -1,0 +1,50 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Perfil | Astral Shop{% endblock title %}
+
+{% block main-content %}
+    <div class="my-container-logo">
+        <div class="presentacion-logo">
+            <h1>Astral Shop</h1>
+        </div>
+    </div>
+    <div class="profile-container my-5">
+        <div class="row">
+            <div class="col-sm-2 border-end">
+                <ul class="list-unstyled">
+                    <li class="d-grid"><a href="{% url 'profile' %}" class="btn btn-custom-primary">Actualizar Perfil</a></li>
+                    <li class="d-grid"><a href="{% url 'address' %}" class="btn btn-custom-secondary">Ver tus datos de perfil</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-8 offset-sm-1">
+                <br><br>
+                <h4><span style="text-transform: uppercase;">{{request.user}}, </span>aquí puedes ver tus datos de perfil y tus diferentes direcciones de envío!</h4>
+                <div class="col-sm-9 offset-sm-1">
+                    <div class="row">
+                        {% for ad in add %}
+                        <div class="col-sm-6">
+                            <div class="card m-3">
+                                <div class="card-body">
+                                    <h3>Dirección {{forloop.counter}}</h3>
+                                    <p>Nombre: {{ad.nombre}}</p>
+                                    <p>Dirección: {{ad.direccion}}</p>
+                                    <p>Teléfono: {{ad.telefono}}</p>
+                                    <p>Departamento: {{ad.departamento}}</p>
+                                    <p>Ciudad: {{ad.ciudad}}</p>
+                                    <p>Identificacion: {{ad.identificacion}}</p>
+                                    <p class="text-center"><a href="{% url 'updateAddress' pk=ad.id %}" type="button" class="btn btn-success">Actualizar</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+{% endblock main-content %}
+
+
+
+
+
